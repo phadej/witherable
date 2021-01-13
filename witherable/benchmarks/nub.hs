@@ -10,6 +10,7 @@ import qualified Data.Vector as V
 import qualified Data.Text as T
 
 import Witherable
+import SpecificNubs
 
 main :: IO ()
 main = do
@@ -21,11 +22,12 @@ main = do
   evaluate (rnf word64sV)
   evaluate (rnf textsV)
 
-  defaultMainWith (defaultConfig { timeLimit = 2 })
+  defaultMainWith (defaultConfig { timeLimit = 5 })
     [ bgroup "word64s"
       [ bgroup "list"
         [ bench "ordNub"  $ nf ordNub  word64s
         , bench "hashNub" $ nf hashNub word64s
+        , bench "hashOpt" $ nf listHashNub word64s
         ]
       , bgroup "vector"
         [ bench "ordNub"  $ nf ordNub  word64sV
@@ -36,6 +38,7 @@ main = do
       [ bgroup "list"
         [ bench "ordNub"  $ nf ordNub  strings
         , bench "hashNub" $ nf hashNub strings
+        , bench "hashOpt" $ nf listHashNub strings
         ]
       , bgroup "vector"
         [ bench "ordNub"  $ nf ordNub  stringsV
@@ -46,6 +49,7 @@ main = do
       [ bgroup "list"
         [ bench "ordNub"  $ nf ordNub  fewstrings
         , bench "hashNub" $ nf hashNub fewstrings
+        , bench "hashOpt" $ nf listHashNub fewstrings
         ]
       , bgroup "vector"
         [ bench "ordNub"  $ nf ordNub  fewstringsV
@@ -56,6 +60,7 @@ main = do
       [ bgroup "list"
         [ bench "ordNub"  $ nf ordNub  texts
         , bench "hashNub" $ nf hashNub texts
+        , bench "hashOpt" $ nf listHashNub texts
         ]
       , bgroup "vector"
         [ bench "ordNub"  $ nf ordNub  textsV

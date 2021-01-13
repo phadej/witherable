@@ -24,12 +24,15 @@ benchmark bench-nub
   hs-source-dirs:      benchmarks
   ghc-options:         -Wall -Wcompat
   main-is:             nub.hs
+  other-modules:       SpecificNubs
   build-depends:       base,
                        criterion,
                        deepseq,
-                       text,
-                       vector,
+                       hashable,
                        QuickCheck,
+                       text,
+                       unordered-containers,
+                       vector,
                        witherable
 
 library
